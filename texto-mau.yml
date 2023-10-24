@@ -1,0 +1,33 @@
+
+AWSTemplateFormatVersion: "2010-09-09"
+Description: A Sample template
+Resources:
+    EC2-Instance-1:
+        Type: AWS::EC2::Instance
+        Properties:
+            ImageId: ami-067d1e60475437da2
+            InstanceType: t2.micro
+            KeyName: vockey
+            SubnetId: subnet-0f5e6641e2eea4cf0
+            SecurityGroupIds: !Ref security-group
+            UserData:
+            !Base64:
+            #1/bin/bash
+            dnf install -y httpd
+            system.t1 enable httpd
+            system.t1 start httpd
+            echo '<html><h1>Hello from your web server!</h1><7html>
+        Security Group:
+          Type: AWS::EC2::SecurtiyGroup
+          Properties:
+            GroupDescription: Lab-security-group-description
+            GroupName: Lab-security-group
+            SecurityGroupIngress: 
+                - IpProtocol: tcp
+                FromPort: 80
+                ToPort: 80
+                CidrIp: "0.0.0.0/0"
+            VpcId: vpc-08a974053d7442543
+            Tags: 
+                - Tag
+            VpcId: String
